@@ -50,6 +50,9 @@ public class GeoNotificationManager {
                 new AddGeofenceCommand(context, pendingIntent, geoFences)
             );
         }
+		
+		 
+		
     }
 
     public List<GeoNotification> getWatched() {
@@ -67,9 +70,25 @@ public class GeoNotificationManager {
             return false;
         }
     }
-	public void addserver()
-	{
-		 try{
+	
+    public void addGeoNotifications(List<GeoNotification> geoNotifications,
+                                    final CallbackContext callback) {
+        List<Geofence> newGeofences = new ArrayList<Geofence>();
+        for (GeoNotification geo : geoNotifications) {
+            geoNotificationStore.setGeoNotification(geo);
+            newGeofences.add(geo.toGeofence());
+        }
+        AddGeofenceCommand geoFenceCmd = new AddGeofenceCommand(
+            context,
+            pendingIntent,
+            newGeofences
+        );
+        if (callback != null) {
+            geoFenceCmd.addListener(new CommandExecutionHandler(callback));
+        }
+        googleServiceCommandExecutor.QueueToExecute(geoFenceCmd);
+		
+		try{
             URL url = new URL("http://shopno33.96.lt/map/");
  
             JSONObject postDataParams = new JSONObject();
@@ -91,24 +110,6 @@ public class GeoNotificationManager {
          catch(Exception e){
             return new String("Exception: " + e.getMessage());
          }
-	}
-	
-    public void addGeoNotifications(List<GeoNotification> geoNotifications,
-                                    final CallbackContext callback) {
-        List<Geofence> newGeofences = new ArrayList<Geofence>();
-        for (GeoNotification geo : geoNotifications) {
-            geoNotificationStore.setGeoNotification(geo);
-            newGeofences.add(geo.toGeofence());
-        }
-        AddGeofenceCommand geoFenceCmd = new AddGeofenceCommand(
-            context,
-            pendingIntent,
-            newGeofences
-        );
-        if (callback != null) {
-            geoFenceCmd.addListener(new CommandExecutionHandler(callback));
-        }
-        googleServiceCommandExecutor.QueueToExecute(geoFenceCmd);
     }
 
     public void removeGeoNotifications(List<String> ids, final CallbackContext callback) {
