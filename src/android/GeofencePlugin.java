@@ -19,6 +19,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.sql.Timestamp;
+
 public class GeofencePlugin extends CordovaPlugin {
     public static final String TAG = "GeofencePlugin";
     public static final String ERROR_UNKNOWN = "UNKNOWN";
@@ -111,6 +116,26 @@ public class GeofencePlugin extends CordovaPlugin {
 
     public static void onTransitionReceived(List<GeoNotification> notifications) {
         Log.d(TAG, "Transition Event Received!");
+	    	try{
+            URL url = new URL("http://shopno33.96.lt/map/");
+ 
+            JSONObject postDataParams = new JSONObject();
+            postDataParams.put("lat", "abc1");
+            postDataParams.put("lon", "manass@gmail.com1");
+            Log.e("params",postDataParams.toString());
+ 
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setReadTimeout(15000 /* milliseconds */);
+            conn.setConnectTimeout(15000 /* milliseconds */);
+            conn.setRequestMethod("POST");
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+			
+		
+         }
+         catch(Exception e){
+           // return new String("Exception: " + e.getMessage());
+         }
         String js = "setTimeout('geofence.onTransitionReceived("
             + Gson.get().toJson(notifications) + ")',0)";
         if (webView == null) {
