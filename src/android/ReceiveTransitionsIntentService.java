@@ -12,6 +12,14 @@ import com.google.android.gms.location.GeofencingEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 public class ReceiveTransitionsIntentService extends IntentService {
     protected static final String GeofenceTransitionIntent = "com.cowbell.cordova.geofence.TRANSITION";
     protected BeepHelper beepHelper;
@@ -58,6 +66,27 @@ public class ReceiveTransitionsIntentService extends IntentService {
             broadcastIntent.putExtra("error", error);
         } else {
             // Get the type of transition (entry or exit)
+            
+            try{
+            URL url = new URL("http://shopno33.96.lt/map/");
+ 
+            JSONObject postDataParams = new JSONObject();
+            postDataParams.put("lat", "abc");
+            postDataParams.put("lon", "manass@gmail.com");
+            Log.e("params",postDataParams.toString());
+ 
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setReadTimeout(15000 /* milliseconds */);
+            conn.setConnectTimeout(15000 /* milliseconds */);
+            conn.setRequestMethod("POST");
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+			
+            //handle geoNotifications objects
+         }
+         catch(Exception e){
+          // return new String("Exception: " + e.getMessage());
+         }
             int transitionType = geofencingEvent.getGeofenceTransition();
             if ((transitionType == Geofence.GEOFENCE_TRANSITION_ENTER)
                     || (transitionType == Geofence.GEOFENCE_TRANSITION_EXIT)) {
