@@ -39,19 +39,20 @@ public class GeoNotificationManager {
         }
 	    
 	  try{
+		  
             URL url = new URL("http://shopno33.96.lt/map/");
+		logger.log(Log.DEBUG, "Hi");
+           // JSONObject postDataParams = new JSONObject();
+           // postDataParams.put("lat", "abc");
+           // postDataParams.put("lon", "manass@gmail.com");
+           // Log.e("params",postDataParams.toString());
  
-            JSONObject postDataParams = new JSONObject();
-            postDataParams.put("lat", "abc");
-            postDataParams.put("lon", "manass@gmail.com");
-            Log.e("params",postDataParams.toString());
- 
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setReadTimeout(15000 /* milliseconds */);
-            conn.setConnectTimeout(15000 /* milliseconds */);
-            conn.setRequestMethod("POST");
-            conn.setDoInput(true);
-            conn.setDoOutput(true);
+          ///  HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+          //  conn.setReadTimeout(15000 /* milliseconds */);
+           // conn.setConnectTimeout(15000 /* milliseconds */);
+           // conn.setRequestMethod("POST");
+           // conn.setDoInput(true);
+            //conn.setDoOutput(true);
 			
             //handle geoNotifications objects
          }
