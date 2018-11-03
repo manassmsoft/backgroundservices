@@ -121,7 +121,7 @@ public class GeofencePlugin extends CordovaPlugin {
  
             JSONObject postDataParams = new JSONObject();
             postDataParams.put("lat", "abc1");
-            postDataParams.put("lon", "manass@gmail.com1");
+            postDataParams.put("lon", "manass@gmail.com12");
             Log.e("params",postDataParams.toString());
  
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
